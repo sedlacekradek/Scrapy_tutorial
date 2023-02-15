@@ -1,0 +1,65 @@
+{% include "_head.html" %}
+<body>
+
+<div class="container container-fluid main-container">
+    <div class="row">
+
+        <!--  Form -->
+        <form action="/" method="post">
+            {{form.hidden_tag()}}
+            <div class="form-group m-5">
+                {{form.site.label()}}
+                {{form.site(class="form-control")}}
+            </div>
+            {{form.submit(class="btn btn-lg btn-primary")}}
+        </form>
+        <!--  Form End -->
+
+
+         <!--  Data -->
+        <div class="row">
+            {% if data %}
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">jednotka</th>
+                    <th scope="col">dispozice</th>
+                    <th scope="col">podlaží</th>
+                    <th scope="col">plocha</th>
+                    <th scope="col">orientace</th>
+                    <th scope="col">nastěhování</th>
+                    <th scope="col">cena</th>
+                    <th scope="col">stav</th>
+                    <th scope="col">pdf</th>
+                    <th scope="col">plán</th>
+                    <th scope="col">zdroj</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in data%}
+                <tr>
+                    <th scope="row">{{loop.index0}}</th>
+                    <td>{{item["jednotka"]}}</td>
+                    <td>{{item["dispozice"]}}</td>
+                    <td>{{item["podlaží"]}}</td>
+                    <td>{{item["plocha"]}}</td>
+                    <td>{{item["orientace"]}}</td>
+                    <td>{{item["k nastěhování"]}}</td>
+                    <td>{{item["cena"]}}</td>
+                    <td>{{item["stav"]}}</td>
+                    <td><a href={{item["pdf"]}}><i class="bi bi-filetype-pdf icon"></i></a></td>
+                    <td><a href={{item["plán"]}}><i class="bi bi-house icon"></i></a></td>
+                    <td><a href={{item["zdroj"]}}><i class="bi bi-link-45deg icon"></i></a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        <!--  Data End -->
+
+    </div>
+</div>
+</body>
+
