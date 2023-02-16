@@ -32,6 +32,8 @@ def home():
             'start_requests': True,
         }
         # scrapyrt - needs to be started from the terminal
+        # You send a request to ScrapyRT with spider name and URL,
+        # and in response, you get items collected by a spider visiting this URL.
         response = requests.get("http://localhost:9080/crawl.json", params)
         data = json.loads(response.text)
         return render_template("index.html", form=form, data=data["items"])
