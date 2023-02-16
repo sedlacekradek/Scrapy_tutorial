@@ -4,6 +4,12 @@ from scrapy.linkextractors import LinkExtractor
 
 class CrawlingSpider(CrawlSpider):
     name = "stodulky"
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'flatcrawling.pipelines.StodulkyPipeline': 400
+        }
+    }
+
     allow_domains = ["bydleni-stodulky.cz"]
     start_urls = ["https://www.bydleni-stodulky.cz/stodulky/cenik/"]
     rules = (
@@ -28,6 +34,11 @@ class CrawlingSpider(CrawlSpider):
 
 class CrawlingSpider2(CrawlSpider):
     name = "skvrnany"
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'flatcrawling.pipelines.SkvrnanyPipeline': 400
+        }
+    }
     allow_domains = ["byty-skvrnany.cz"]
     start_urls = ["https://www.byty-skvrnany.cz/skvrnany/cenik/"]
     rules = (
@@ -52,6 +63,12 @@ class CrawlingSpider2(CrawlSpider):
 
 class CrawlingSpider3(CrawlSpider):
     name = "knoviz"
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'flatcrawling.pipelines.KnovizPipeline': 400
+        }
+    }
+
     allow_domains = ["www.knoviz22.cz"]
     start_urls = ["https://www.knoviz22.cz/o-projektu"]
     rules = (
@@ -60,14 +77,14 @@ class CrawlingSpider3(CrawlSpider):
 
     def parse_item(self, response):
         yield {
-            "jednotka": response.css("h3 strong::text").get().replace("Samostatný rodinný dům č.", ""),
-            "dispozice":  response.xpath('//div[2]//p//text()').getall()[3].replace("typ domu:", "").replace("\xa0", ""),
+            "jednotka": response.css("h3 strong::text").get(),
+            "dispozice":  response.xpath('//div[2]//p//text()').getall()[3],
             "podlaží": "-",
-            "plocha": "".join(response.xpath('//div[2]//p//text()').getall()[8:10]).replace("\n", "").replace("\xa0m2\xa0", "").strip(),
+            "plocha": "".join(response.xpath('//div[2]//p//text()').getall()[8:10]),
             "orientace": "JV, SZ",
-            "k nastěhování": "-",
-            "cena": response.xpath('//div[2]//p//text()').getall()[-24].replace("\n", "").replace("\xa0", "").replace("cena:", ""),
-            "stav": "volný",
+            "k nastěhování": "neuvedeno",
+            "cena": response.xpath('//div[2]//p//text()').getall()[-24],
+            "stav": "Volný",
             "pdf": response.css(".block-inline h4 a::attr(href)").get(),
             "plán": response.css(".block-inline h4 a::attr(href)").getall()[2],
             "zdroj": response.url,

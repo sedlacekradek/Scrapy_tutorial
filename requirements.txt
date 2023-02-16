@@ -3,3 +3,5 @@ gunicorn
 flask_wtf
 wtforms
 scrapy
+scrapyrt
+requests
