@@ -9,8 +9,11 @@ import secrets
 
 ### FORMS ###
 class LocationForm(FlaskForm):
-    site = SelectField('Lokalita', validators=[DataRequired()], choices=[('stodulky', 'Praha - Stodůlky (https://www.bydleni-stodulky.cz/stodulky/cenik/)'),
-                                                                         ('skvrnany', 'Plzeň - Skvrňany (https://www.byty-skvrnany.cz/skvrnany/cenik/)')])
+    site = SelectField('Lokalita', validators=[DataRequired()],
+                       choices=[('stodulky', 'Praha - Stodůlky (https://www.bydleni-stodulky.cz/stodulky/cenik/)'),
+                                ('skvrnany', 'Plzeň - Skvrňany (https://www.byty-skvrnany.cz/skvrnany/cenik/)'),
+                                ('knoviz', 'Knovíz - vilová čtvrť (https://www.knoviz22.cz/)')]
+                       )
     submit = SubmitField('Scrape')
 
 
@@ -28,8 +31,7 @@ def home():
             'spider_name': f'{form.site.data}',
             'start_requests': True,
         }
-        # scrapyrt
-        # first needs to be started from the terminal
+        # scrapyrt - needs to be started from the terminal
         response = requests.get("http://localhost:9080/crawl.json", params)
         data = json.loads(response.text)
         return render_template("index.html", form=form, data=data["items"])
