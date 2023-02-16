@@ -10,7 +10,7 @@ from itemadapter import ItemAdapter
 
 def convert_price(price: str) -> str:
     """
-    Converts price string from '5 580 000 Kč' to '5.58 mil. Kč'
+    Converts price string from e.g. '5 580 000 Kč' to '5.58 mil. Kč'
 
     :param price: string of price value to be converted
     :return: string in format "x.xx mil. Kč"
